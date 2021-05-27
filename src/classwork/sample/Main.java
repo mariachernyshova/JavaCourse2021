@@ -1,5 +1,7 @@
 package classwork.sample;
 
+import java.time.LocalDate;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,5 +14,8 @@ public class Main {
 
         //добавляем отдел в компанию
         myCompany.addDepartment(department);
+
+        System.out.println(Person.AgeCalculator.getAge(LocalDate.MIN));
+
     }
 }
