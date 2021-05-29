@@ -20,7 +20,7 @@ public class Department {
     //паттерны?
     public Employee getOrAddHeadEmployee() {
         if (employeeList.isEmpty()) {
-            employeeList.add(0, new Employee());
+            employeeList.add(0, new Employee("", 0));
         }
         return employeeList.get(0);
     }
