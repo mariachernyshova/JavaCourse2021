@@ -8,6 +8,7 @@ import java.time.Period;
 public class Person {
     protected String firstName;
     protected String surName;
+    protected String middleName;
     protected Passport passport;
     private LocalDate birthDay;
     private Sex sex;
@@ -61,6 +62,13 @@ public class Person {
         private String issuerCode;
         private LocalDate dateOfIssue;
 
+        public short getPrefix() {
+            return prefix;
+        }
+        public int getNumber() {
+            return number;
+        }
+
         public String getIssuerInfo() {
             class Issuer {
                 private String issuerFullInfo;
@@ -86,18 +94,19 @@ public class Person {
 //
 //    }
 
-    public Person(String firstName, String surName, LocalDate birthDay) {
-        this(firstName, surName);
+    public Person(String firstName, String surName, String middleName, LocalDate birthDay) {
+        this(firstName, surName, middleName);
         this.setBirthDay(birthDay);
     }
 
-    public Person(String firstName, String surName) {
+    public Person(String firstName, String surName, String middleName) {
         this.firstName = firstName;
         this.surName = surName;
+        this.middleName = middleName;
     }
 
-    public Person(String firstName, String surName, LocalDate birthDay, Passport passport, Sex sex) {
-        this(firstName, surName);
+    public Person(String firstName, String surName, String middleName, LocalDate birthDay, Passport passport, Sex sex) {
+        this(firstName, surName, middleName);
         this.surName = surName;
         this.setBirthDay(birthDay);
         this.passport = passport;
@@ -113,8 +122,27 @@ public class Person {
         }
     }
 
+    public LocalDate getBirthDay() {
+        return birthDay;
+    }
+
+    public String getBirthDayString() {
+        return birthDay == null? "" : birthDay.getYear() + "-" + birthDay.getMonth() + "-" + birthDay.getDayOfMonth();
+    }
+
+    public String getFullName() {
+        return surName + "  " + firstName + "    " + middleName;
+    }
+
     public String getPassportFullNumber() {
         return passport.prefix + " " + passport.number;
     }
 
+    public String getPassportPrefix() {
+        return passport == null ? "" : passport.prefix + "";
+    }
+
+    public String getPassportNumber() {
+        return passport == null ? "" : passport.number + "";
+    }
 }

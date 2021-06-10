@@ -1,9 +1,9 @@
 package classwork.sample;
 
-public class HalfStuff extends Employee implements ParticipantOfMeeting {
+public class HalfStuff extends Stuff {
 
     public HalfStuff(String position, int salary, Contract contract, Department department) {
-        super(position, salary, department);
+        super(position, salary, contract, department);
 //        super.contract = contract; //можно this, так как стафф расширяет Employee и имеет все его поля
         super.workDayDuration = 4;
         super.department = department;

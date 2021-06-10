@@ -15,29 +15,38 @@ public class Employee extends Person implements Worker{
 //    }
 
     public Employee(String position, int salary) {
-        super("Ivan","Ivanov");
+        super("Ivan","Ivanov","Ivanovich");
         this.position = position;
         this.salary = salary;
     }
 
     public Employee(String position, int salary, Department department) {
-        super("Ivan","Ivanov");
+        super("Ivan","Ivanov","Ivanovich");
         this.position = position;
         this.salary = salary;
         this.department = department;
     }
 
-    public Employee(String firstName, String surName, String position,
+    public Employee(String firstName, String surName, String middleName, String position,
                     int salary, int workDayDuration, Department department) {
-        super(firstName, surName);
+        super(firstName, surName, middleName);
         this.position = position;
         this.salary = salary;
         this.workDayDuration = workDayDuration;
         this.department = department;
     }
 
+//    public Employee(String firstName, String surName, String middleName, String position,
+//                    int salary, int workDayDuration, Department department) {
+//        super(firstName, surName, middleName);
+//        this.position = position;
+//        this.salary = salary;
+//        this.workDayDuration = workDayDuration;
+//        this.department = department;
+//    }
+
     public Employee(String position, int salary, int workDayDuration, Department department) {
-        super("Ivan","Ivanov");
+        super("Ivan","Ivanov", "Ivanovitch");
         this.position = position;
         this.salary = salary;
         this.workDayDuration = workDayDuration;
@@ -57,6 +66,14 @@ public class Employee extends Person implements Worker{
     @Override
     public void finishWork() {
         System.out.println("I'm finished my work");
+    }
+
+    @Override
+    public String toString() {
+        return this.surName + ";" + this.firstName + ";" + this.middleName + ";" +
+                this.getBirthDayString() + ";" +
+                this.getPassportPrefix() + ";" + this.getPassportNumber() + ";" +
+                this.position + ";" + this.salary + ";" + this.workDayDuration + ";" +this.workHours;
     }
 }
 
