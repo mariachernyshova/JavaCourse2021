@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    public static void main(String[] args) throws MySpecificException, FileNotFoundException {
+    public static void main(String[] args) throws MySpecificException, FileNotFoundException, SQLException, ClassNotFoundException {
         //создаем головной отдел и добавляем туда шефа
         Department department = new Department("headDep");
 
@@ -23,6 +24,9 @@ public class Main {
 
 //        Employee firstEmployee = new Stuff("Chief", 1000000, staffContract, department);
         Stuff firstEmployee = new Stuff("Chief", 1000000, staffContract, department);
+        firstEmployee.saveEmployee();
+//        firstEmployee.loadEmployeeFromDB();
+
         department.addEmployee(firstEmployee);
         department.getStuffEmployeeList().add(firstEmployee);
 //        Employee thirdEmployee = new HalfStuff("Developer", 100000, staffContract, department);

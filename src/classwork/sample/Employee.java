@@ -1,6 +1,10 @@
 package classwork.sample;
 
+import java.sql.*;
+import java.time.LocalDate;
+
 public class Employee extends Person implements Worker{
+    private static long id = 1;
     private String position;
     private int salary;
     protected Department department;
@@ -8,6 +12,13 @@ public class Employee extends Person implements Worker{
     protected Contract contract;
     protected int workHours;
 
+//    static {
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 //    public Employee(String position, int salaryRub, Person person) {
 //        super(person.firstName, person.surName);
 //        this.position = position;
@@ -21,7 +32,8 @@ public class Employee extends Person implements Worker{
     }
 
     public Employee(String position, int salary, Department department) {
-        super("Ivan","Ivanov","Ivanovich");
+        //birthDay чтобы не было NPE
+        super("Ivan","Ivanov","Ivanovich", LocalDate.now());
         this.position = position;
         this.salary = salary;
         this.department = department;
@@ -51,6 +63,61 @@ public class Employee extends Person implements Worker{
         this.salary = salary;
         this.workDayDuration = workDayDuration;
         this.department = department;
+    }
+
+    public void saveEmployee() throws SQLException, ClassNotFoundException {
+//        Class.forName("org.postgresql.Driver");
+        //для postgre url имя хоста имя бд
+        //try with resources потому что нужно закрывать (автоматически закроется)
+        try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/employees","postgres", "123456");) {
+            PreparedStatement statement = con.prepareStatement(
+                    "INSERT INTO person (id, surname, firstname, middlename, birthday) VALUES (?, ?, ?, ?, ?)");
+            //? потому что передаем в параметрах
+            long personId = Person.id++;
+            statement.setLong(1, personId);
+            statement.setString(2, this.surName);
+            statement.setString(3, this.firstName);
+            statement.setString(4, this.middleName);
+            statement.setDate(5, Date.valueOf(this.getBirthDay()));
+            //выполним запрос
+            statement.executeUpdate();
+
+            statement = con.prepareStatement(
+                    "INSERT INTO employee (id, position, salary, personid) VALUES (?, ?, ?, ?)");
+            //? потому что передаем в параметрах
+            statement.setLong(1, Employee.id++);
+            statement.setString(2, this.position);
+            statement.setDouble(3, this.salary);
+            statement.setLong(4, personId);
+            //выполним запрос
+            statement.executeUpdate();
+        }
+    }
+
+    public void loadEmployeeFromDB() {
+//        Class.forName("org.postgresql.Driver");
+        //для postgre url имя хоста имя бд
+        //try with resources потому что нужно закрывать (автоматически закроется)
+        try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/postgres","postgres", "123456");) {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT p.id, p.surname, p.firstname, p.middlename, p.birthday, e.position, e.salary " +
+                    "FROM person p JOIN employee e ON p.id=e.id " +
+                    "WHERE p.id = 1");
+            if (rs.next()) {
+                this.surName = rs.getString("surname");
+                this.firstName = rs.getString("firstname");
+                this.middleName = rs.getString("middletname");
+                this.setBirthDay(rs.getDate("birthday").toLocalDate());
+                this.position = rs.getString("position");
+                this.salary = rs.getInt("salary");
+            }
+
+//            rs.close();
+//            statement.close();
+//            con.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override

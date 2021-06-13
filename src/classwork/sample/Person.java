@@ -10,6 +10,7 @@ public class Person {
     protected String surName;
     protected String middleName;
     protected Passport passport;
+    protected static long id = 1;
     private LocalDate birthDay;
     private Sex sex;
 
