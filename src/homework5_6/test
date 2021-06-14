@@ -1,0 +1,19 @@
+AbstractTest - A.
+Car - C. (this так как метод не статический)
+Dog - E. (у Dog нет такого метода)
+Laser - A. (т.к. объект изменился)
+McGee - A.
+Overloaded1 - 2
+SubSubAlpha - C.
+Pockets - A. (??)
+Redwood - C.
+Tour - D.
+ZooKeeper - A.  но я выбрала С и не поняла, почему А
+
+Business - B
+FirstGrade - F
+Gen1 - B
+GeoCache - ??? G D
+Magellan - A
+MapQE - C; (D - почему?)
+TreeSet1 - D
