@@ -4,6 +4,7 @@ import javax.swing.Icon;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Person {
     protected String firstName;
@@ -128,7 +129,7 @@ public class Person {
     }
 
     public String getBirthDayString() {
-        return birthDay == null? "" : birthDay.getYear() + "-" + birthDay.getMonth() + "-" + birthDay.getDayOfMonth();
+        return birthDay == null? "" : birthDay.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
     }
 
     public String getFullName() {

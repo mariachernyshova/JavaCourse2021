@@ -1,9 +1,14 @@
 package classwork.sample;
 
 import java.sql.*;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-public class Employee extends Person implements Worker{
+public class Employee extends Person implements Worker {
+    private static ResourceBundle employeeBundle = ResourceBundle.getBundle("employee", Locale.ENGLISH);
+
     private static long id = 1;
     private String position;
     private int salary;
@@ -92,6 +97,37 @@ public class Employee extends Person implements Worker{
             //выполним запрос
             statement.executeUpdate();
         }
+
+        /*
+        try (Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/postgres", "postgres", "123456")) {
+            Savepoint s = null;
+            try {
+                con.setAutoCommit(false);
+                s = con.setSavepoint("Savepoint1");
+                PreparedStatement statement = con.prepareStatement(
+                        "INSERT INTO person (personid, surname, firstname, middlename, birthday) VALUES (?, ?, ?, ?, ?)");
+                long personId = Person.personId;
+                statement.setLong(1, Person.personId++);
+                statement.setString(2, this.surName);
+                statement.setString(3, this.firstName);
+                statement.setString(4, this.middleName);
+                statement.setDate(5, Date.valueOf(this.getBirthDay()));
+                statement.executeUpdate();
+                statement = con.prepareStatement(
+                        "INSERT INTO employee (id, position , salary, personid) VALUE (?, ?, ?, ?)");
+                statement.setLong(1, Employee.employeeId++);
+                statement.setString(2, this.position);
+                statement.setDouble(3, this.salary);
+                statement.setLong(4, personId);
+                statement.executeUpdate();
+                con.commit();
+            } catch (SQLException e) {
+                con.rollback(s);
+                con.commit();
+                e.printStackTrace();
+            }
+        }
+         */
     }
 
     public void loadEmployeeFromDB() {
@@ -122,17 +158,17 @@ public class Employee extends Person implements Worker{
 
     @Override
     public void goWork() {
-        System.out.println("I'm at work");
+        System.out.println(employeeBundle.getString("goWork"));
     }
 
     @Override
     public void doWork() {
-        System.out.println("I'm doing my work");
+        System.out.println(employeeBundle.getString("doWork"));
     }
 
     @Override
     public void finishWork() {
-        System.out.println("I'm finished my work");
+        System.out.println(employeeBundle.getString("finishWork"));
     }
 
     @Override
@@ -140,7 +176,7 @@ public class Employee extends Person implements Worker{
         return this.surName + ";" + this.firstName + ";" + this.middleName + ";" +
                 this.getBirthDayString() + ";" +
                 this.getPassportPrefix() + ";" + this.getPassportNumber() + ";" +
-                this.position + ";" + this.salary + ";" + this.workDayDuration + ";" +this.workHours;
+                this.position + ";" + NumberFormat.getInstance().format(this.salary) + ";" + this.workDayDuration + ";" +this.workHours;
     }
 }
 

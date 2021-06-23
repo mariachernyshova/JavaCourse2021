@@ -24,7 +24,10 @@ public class Main {
 
 //        Employee firstEmployee = new Stuff("Chief", 1000000, staffContract, department);
         Stuff firstEmployee = new Stuff("Chief", 1000000, staffContract, department);
-        firstEmployee.saveEmployee();
+        firstEmployee.goWork();
+        firstEmployee.doWork();
+        firstEmployee.finishWork();
+//        firstEmployee.saveEmployee();
 //        firstEmployee.loadEmployeeFromDB();
 
         department.addEmployee(firstEmployee);
