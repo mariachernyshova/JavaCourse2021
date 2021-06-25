@@ -1,19 +1,19 @@
 AbstractTest - A.
-Car - C. (this так как метод не статический)
+Car - C. (this так как метод не статический) //есть еще один ответ
 Dog - E. (у Dog нет такого метода)
 Laser - A. (т.к. объект изменился)
 McGee - A.
 Overloaded1 - 2
 SubSubAlpha - C.
-Pockets - A. (??)
-Redwood - C.
-Tour - D.
-ZooKeeper - A.  но я выбрала С и не поняла, почему А
+Pockets - A. (??)//в чем тут сомнения? все верно
+Redwood - C. //неверно
+Tour - D. 
+ZooKeeper - A.  но я выбрала С и не поняла, почему А  // медод потомка перекрывает метод предка, но поля не перекрываются
 
 Business - B
-FirstGrade - F
-Gen1 - B
-GeoCache - ??? G D
+FirstGrade - F//неверно
+Gen1 - B 
+GeoCache - ??? G D //в чем тут сомнения? все верно
 Magellan - A
-MapQE - C; (D - почему?)
+MapQE - C; (D - почему?) //почитаейте описание метода hashCode и посмотрите его реализацию в классе Object
 TreeSet1 - D
