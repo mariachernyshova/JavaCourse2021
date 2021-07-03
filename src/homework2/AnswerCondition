@@ -1,5 +1,7 @@
 Ebb - D. 9 10 10 d 13
 Equal - c. s1.equalsIgnoreCase(s2)
 Flipper - C. -rg //неверно, подумайте, почему А правильный ответ
+        потому что substring берет подстроку не включая символ под endIndex и "red" не equals "re"
+        следовательно не попадет ни в один case
 Hexy -  D. everything 
 SpecialOps -  C.  y will be included in the output/y содержится в выводе программы
